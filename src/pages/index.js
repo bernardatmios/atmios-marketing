@@ -10,13 +10,14 @@ class RootIndex extends React.Component {
   render() {
     const posts = get(this, 'props.data.allContentfulBlogPost.nodes')
     const [author] = get(this, 'props.data.allContentfulPerson.nodes')
+    const [atmios] = get(this, 'props.data.allContentfulAtmiosMarketingTop.nodes')
 
     return (
       <Layout location={this.props.location}>
         <Hero
           image={author.heroImage.gatsbyImageData}
-          title={author.name}
-          content={author.shortBio.shortBio}
+          title={atmios.catchPhrase}
+          content={atmios.catchPhraseBlurb.raw}
         />
         <ArticlePreview posts={posts} />
       </Layout>
@@ -64,6 +65,14 @@ export const pageQuery = graphql`
             placeholder: BLURRED
             width: 1180
           )
+        }
+      }
+    }
+    allContentfulAtmiosMarketingTop {
+      nodes {
+        catchPhrase
+        catchPhraseBlurb {
+          raw
         }
       }
     }
